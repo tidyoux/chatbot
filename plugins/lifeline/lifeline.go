@@ -34,6 +34,12 @@ func lifeline(cmd *bot.Cmd) (bot.CmdResultV3, error) {
 	go func() {
 		defer closeResultChan(&result)
 
+		if !getLock(cmd.Channel) {
+			return
+		}
+
+		defer releaseLock(cmd.Channel)
+
 		var currentSection string
 		if answer == startCmd {
 			answer = ""
