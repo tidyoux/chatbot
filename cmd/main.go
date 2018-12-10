@@ -72,6 +72,10 @@ func run(token string, debug bool, client *http.Client) error {
 				return
 			}
 
+			if len(message) == 0 {
+				return
+			}
+
 			apiClient.Send(tgbotapi.NewChatAction(id, tgbotapi.ChatTyping))
 
 			msg := tgbotapi.NewMessage(id, message)
